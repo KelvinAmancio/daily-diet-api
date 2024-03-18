@@ -36,17 +36,22 @@ export async function mealsRoutes(app: FastifyInstance) {
         const mealsOnDiet = meals.filter(filter => filter.is_on_diet).length
         const mealsOffDiet = totalMeals - mealsOnDiet
 
-        // let mealsOnDietSequence = []
-        const bestMealsOnDietSequence = 0
-        // for (const [index, meal] of meals.entries()) {
-        //     if (meal.is_on_diet) {
-        //         bestMealsOnDietSequence++
-        //     }
+        let bestMealsOnDietSequence = 0
+        let mealsOnDietSequence = []
+        for (const meal of meals) {
+            if (meal.is_on_diet) {
+                mealsOnDietSequence.push(meal.id)
+                continue
+            }
 
-        //     if (!meal.is_on_diet && index < totalMeals - 1) {
-        //         bestMealsOnDietSequence = 0
-        //     }
-        // }
+            if (bestMealsOnDietSequence < mealsOnDietSequence.length) {
+                bestMealsOnDietSequence = mealsOnDietSequence.length
+            }
+
+            if (mealsOnDietSequence.length > 0) {
+                mealsOnDietSequence = []
+            }
+        }
 
         const metrics = {
             total: totalMeals,
