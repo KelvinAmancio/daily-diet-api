@@ -33,7 +33,7 @@ export async function mealsRoutes(app: FastifyInstance) {
             .select()
 
         const totalMeals = meals.length
-        const mealsOnDiet = meals.filter(filter => filter.is_on_diet).length
+        const mealsOnDiet = meals.filter(meal => meal.is_on_diet).length
         const mealsOffDiet = totalMeals - mealsOnDiet
 
         let bestMealsOnDietSequence = 0
@@ -68,8 +68,8 @@ export async function mealsRoutes(app: FastifyInstance) {
         const createMealBodySchema = z.object({
             name: z.string(),
             description: z.string(),
-            is_on_diet: z.boolean(),
-            meal_date: z.string()
+            is_on_diet: z.number().int().min(0).max(1),
+            meal_date: z.coerce.date()
         })
 
         const {
@@ -90,12 +90,12 @@ export async function mealsRoutes(app: FastifyInstance) {
             })
         }
 
-        await knex('transactions').insert({
+        await knex('meals').insert({
             id: randomUUID(),
             name,
             description,
-            is_on_diet: isOnDiet,
-            meal_date: mealDate,
+            is_on_diet: Boolean(isOnDiet),
+            meal_date: mealDate.toISOString(),
             session_id: sessionId
         })
 
@@ -112,7 +112,7 @@ export async function mealsRoutes(app: FastifyInstance) {
         const editMealBodySchema = z.object({
             name: z.string(),
             description: z.string(),
-            is_on_diet: z.boolean(),
+            is_on_diet: z.number().int().min(0).max(1),
             meal_date: z.string()
         })
 
@@ -127,7 +127,7 @@ export async function mealsRoutes(app: FastifyInstance) {
             .update({
                 name,
                 description,
-                is_on_diet: isOnDiet,
+                is_on_diet: Boolean(isOnDiet),
                 meal_date: mealDate
             })
             .where({ id, session_id: sessionId })
