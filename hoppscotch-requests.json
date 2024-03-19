@@ -1,0 +1,120 @@
+{
+    "v": 2,
+    "name": "Daily Diet",
+    "folders": [],
+    "requests": [
+        {
+            "v": "1",
+            "endpoint": "http://localhost:3333/meals",
+            "name": "Create Meal",
+            "params": [],
+            "headers": [],
+            "method": "POST",
+            "auth": {
+                "authType": "none",
+                "authActive": true
+            },
+            "preRequestScript": "",
+            "testScript": "",
+            "body": {
+                "contentType": "application/json",
+                "body": "{\n  \"name\": \"New Meal\",\n  \"description\": \"New meal description\",\n  \"is_on_diet\": 1,\n  \"meal_date\": \"2023-01-10T00:00:00.000Z\"\n}"
+            }
+        },
+        {
+            "v": "1",
+            "endpoint": "http://localhost:3333/meals",
+            "name": "List Meals",
+            "params": [],
+            "headers": [],
+            "method": "GET",
+            "auth": {
+                "authType": "none",
+                "authActive": true
+            },
+            "preRequestScript": "",
+            "testScript": "",
+            "body": {
+                "contentType": null,
+                "body": "{\n  \"name\": \"New Meal\",\n  \"description\": \"New meal description\",\n  \"is_on_diet\": true,\n  \"meal_date\": \"2023-01-10T00:00:00.000Z\"\n}"
+            }
+        },
+        {
+            "v": "1",
+            "endpoint": "http://localhost:3333/meals/8eee43c1-861b-472a-b9e1-175cf72e4bca",
+            "name": "Edit Meal",
+            "params": [],
+            "headers": [],
+            "method": "PATCH",
+            "auth": {
+                "authType": "none",
+                "authActive": true
+            },
+            "preRequestScript": "",
+            "testScript": "",
+            "body": {
+                "contentType": "application/json",
+                "body": "{\n  \"name\": \"New Meal 2\",\n  \"description\": \"New meal 2 description\",\n  \"is_on_diet\": 0,\n  \"meal_date\": \"2024-01-10T00:00:00.000Z\"\n}"
+            }
+        },
+        {
+            "v": "1",
+            "endpoint": "http://localhost:3333/meals/metrics",
+            "name": "Get Meals Metrics",
+            "params": [],
+            "headers": [],
+            "method": "GET",
+            "auth": {
+                "authType": "none",
+                "authActive": true
+            },
+            "preRequestScript": "",
+            "testScript": "",
+            "body": {
+                "contentType": null,
+                "body": "{\n  \"name\": \"New Meal\",\n  \"description\": \"New meal description\",\n  \"is_on_diet\": true,\n  \"meal_date\": \"2023-01-10T00:00:00.000Z\"\n}"
+            }
+        },
+        {
+            "v": "1",
+            "endpoint": "http://localhost:3333/meals/8eee43c1-861b-472a-b9e1-175cf72e4bca",
+            "name": "Get Meal",
+            "params": [],
+            "headers": [],
+            "method": "PATCH",
+            "auth": {
+                "authType": "none",
+                "authActive": true
+            },
+            "preRequestScript": "",
+            "testScript": "",
+            "body": {
+                "contentType": "application/json",
+                "body": "{\n  \"name\": \"New Meal 2\",\n  \"description\": \"New meal 2 description\",\n  \"is_on_diet\": 0,\n  \"meal_date\": \"2024-01-10T00:00:00.000Z\"\n}"
+            }
+        },
+        {
+            "v": "1",
+            "endpoint": "http://localhost:3333/meals/8eee43c1-861b-472a-b9e1-175cf72e4bca",
+            "name": "Delete Meal",
+            "params": [],
+            "headers": [],
+            "method": "PATCH",
+            "auth": {
+                "authType": "none",
+                "authActive": true
+            },
+            "preRequestScript": "",
+            "testScript": "",
+            "body": {
+                "contentType": "application/json",
+                "body": "{\n  \"name\": \"New Meal 2\",\n  \"description\": \"New meal 2 description\",\n  \"is_on_diet\": 0,\n  \"meal_date\": \"2024-01-10T00:00:00.000Z\"\n}"
+            }
+        }
+    ],
+    "headers": [],
+    "auth": {
+        "authType": "inherit",
+        "authActive": false
+    }
+}
