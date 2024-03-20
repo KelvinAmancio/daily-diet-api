@@ -18,8 +18,14 @@ describe('Meals routes', () => {
     })
 
     it('should be able to create a new meal', async () => {
+        const userResponse = await request(app.server)
+            .post('/users')
+            .send({ name: 'John Doe', email: 'johndoe@gmail.com' })
+            .expect(201)
+
         await request(app.server)
             .post('/meals')
+            .set('Cookie', userResponse.get('Set-Cookie'))
             .send({
                 name: 'New Meal',
                 description: 'New meal description',
@@ -30,6 +36,11 @@ describe('Meals routes', () => {
     })
 
     it('should be able to list all meals', async () => {
+        const userResponse = await request(app.server)
+            .post('/users')
+            .send({ name: 'John Doe', email: 'johndoe@gmail.com' })
+            .expect(201)
+
         const mealData = {
             name: 'New Meal',
             description: 'New meal description',
@@ -37,12 +48,9 @@ describe('Meals routes', () => {
             meal_date: new Date().toISOString()
         }
 
-        const createMealResponse = await request(app.server)
-            .post('/meals')
-            .send(mealData)
-            .expect(201)
+        const cookies = userResponse.get('set-cookie')
 
-        const cookies = createMealResponse.get('set-cookie')
+        await request(app.server).post('/meals').set('Cookie', cookies).send(mealData).expect(201)
 
         const listMealsResponse = await request(app.server)
             .get('/meals')
@@ -55,6 +63,11 @@ describe('Meals routes', () => {
     })
 
     it('should be able to get a specific meal', async () => {
+        const userResponse = await request(app.server)
+            .post('/users')
+            .send({ name: 'John Doe', email: 'johndoe@gmail.com' })
+            .expect(201)
+
         const mealData = {
             name: 'New Meal',
             description: 'New meal description',
@@ -62,12 +75,9 @@ describe('Meals routes', () => {
             meal_date: new Date().toISOString()
         }
 
-        const createMealResponse = await request(app.server)
-            .post('/meals')
-            .send(mealData)
-            .expect(201)
+        const cookies = userResponse.get('set-cookie')
 
-        const cookies = createMealResponse.get('set-cookie')
+        await request(app.server).post('/meals').set('Cookie', cookies).send(mealData).expect(201)
 
         const listMealsResponse = await request(app.server)
             .get('/meals')
@@ -87,7 +97,13 @@ describe('Meals routes', () => {
     })
 
     it('should be able to get the user meals metrics', async () => {
-        let cookies: string[] = []
+        const userResponse = await request(app.server)
+            .post('/users')
+            .send({ name: 'John Doe', email: 'johndoe@gmail.com' })
+            .expect(201)
+
+        const cookies = userResponse.get('set-cookie')
+
         const isOnDietArray = [0, 1, 1, 0, 0, 1, 1, 1, 0, 1]
 
         for await (const [index, isOnDiet] of isOnDietArray.entries()) {
@@ -98,21 +114,11 @@ describe('Meals routes', () => {
                 meal_date: new Date().toISOString()
             }
 
-            let createMealRequest = request(app.server).post('/meals')
-
-            if (cookies.length) {
-                createMealRequest = createMealRequest.set('Cookie', cookies)
-            }
-
-            const createMealResponse = await createMealRequest.send(mealData).expect(201)
-
-            if (!cookies.length) {
-                const createMealResponseCookies = createMealResponse.get('set-cookie')
-
-                cookies = Array.isArray(createMealResponseCookies)
-                    ? createMealResponseCookies
-                    : [createMealResponseCookies]
-            }
+            await request(app.server)
+                .post('/meals')
+                .set('Cookie', cookies)
+                .send(mealData)
+                .expect(201)
         }
 
         const getMealsMetricsResponse = await request(app.server)
@@ -129,6 +135,13 @@ describe('Meals routes', () => {
     })
 
     it('should be able to edit a meal', async () => {
+        const userResponse = await request(app.server)
+            .post('/users')
+            .send({ name: 'John Doe', email: 'johndoe@gmail.com' })
+            .expect(201)
+
+        const cookies = userResponse.get('set-cookie')
+
         const mealData = {
             name: 'New Meal',
             description: 'New meal description',
@@ -136,12 +149,7 @@ describe('Meals routes', () => {
             meal_date: new Date().toISOString()
         }
 
-        const createMealResponse = await request(app.server)
-            .post('/meals')
-            .send(mealData)
-            .expect(201)
-
-        const cookies = createMealResponse.get('set-cookie')
+        await request(app.server).post('/meals').set('Cookie', cookies).send(mealData).expect(201)
 
         const listMealsResponse = await request(app.server)
             .get('/meals')
@@ -174,6 +182,13 @@ describe('Meals routes', () => {
     })
 
     it('should be able to delete a meal', async () => {
+        const userResponse = await request(app.server)
+            .post('/users')
+            .send({ name: 'John Doe', email: 'johndoe@gmail.com' })
+            .expect(201)
+
+        const cookies = userResponse.get('set-cookie')
+
         const mealData = {
             name: 'New Meal',
             description: 'New meal description',
@@ -181,12 +196,7 @@ describe('Meals routes', () => {
             meal_date: new Date().toISOString()
         }
 
-        const createMealResponse = await request(app.server)
-            .post('/meals')
-            .send(mealData)
-            .expect(201)
-
-        const cookies = createMealResponse.get('set-cookie')
+        await request(app.server).post('/meals').set('Cookie', cookies).send(mealData).expect(201)
 
         const listMealsResponse = await request(app.server)
             .get('/meals')

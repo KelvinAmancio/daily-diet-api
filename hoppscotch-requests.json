@@ -81,7 +81,7 @@
             "name": "Get Meal",
             "params": [],
             "headers": [],
-            "method": "PATCH",
+            "method": "DELETE",
             "auth": {
                 "authType": "none",
                 "authActive": true
@@ -89,7 +89,7 @@
             "preRequestScript": "",
             "testScript": "",
             "body": {
-                "contentType": "application/json",
+                "contentType": null,
                 "body": "{\n  \"name\": \"New Meal 2\",\n  \"description\": \"New meal 2 description\",\n  \"is_on_diet\": 0,\n  \"meal_date\": \"2024-01-10T00:00:00.000Z\"\n}"
             }
         },
@@ -110,11 +110,29 @@
                 "contentType": "application/json",
                 "body": "{\n  \"name\": \"New Meal 2\",\n  \"description\": \"New meal 2 description\",\n  \"is_on_diet\": 0,\n  \"meal_date\": \"2024-01-10T00:00:00.000Z\"\n}"
             }
+        },
+        {
+            "v": "1",
+            "endpoint": "http://localhost:3333/users",
+            "name": "Create User",
+            "params": [],
+            "headers": [],
+            "method": "POST",
+            "auth": {
+                "authType": "none",
+                "authActive": true
+            },
+            "preRequestScript": "",
+            "testScript": "",
+            "body": {
+                "contentType": "application/json",
+                "body": "{\n  \"name\": \"Test User\",\n  \"email\": \"test@test.com\"\n}"
+            }
         }
     ],
-    "headers": [],
     "auth": {
         "authType": "inherit",
         "authActive": false
-    }
+    },
+    "headers": []
 }
